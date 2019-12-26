@@ -25,7 +25,7 @@ object Versions {
     const val minSdk = 15
 
     const val groupId = "com.github.hadilq"
-    const val artifactId = "CoroutineLifecycleHandler"
+    const val artifactId = "coroutinelifecyclehandler"
     const val libVersion = "0.1.0"
 
     //Libraries

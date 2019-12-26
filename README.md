@@ -1,6 +1,6 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.hadilq/coroutinelifecyclehandler/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.hadilq/coroutinelifecyclehandler)
 [![CircleCI](https://circleci.com/gh/hadilq/CoroutineLifecycleHandler.svg?style=svg)](https://circleci.com/gh/hadilq/CoroutineLifecycleHandler)
-[![codecov](https://codecov.io/gh/hadilq/coroutinelifecyclehandler/branch/master/graph/badge.svg)](https://codecov.io/gh/hadilq/coroutinelifecyclehandler)
+[![codecov](https://codecov.io/gh/hadilq/CoroutineLifecycleHandler/branch/master/graph/badge.svg)](https://codecov.io/gh/hadilq/CoroutineLifecycleHandler)
 
 Coroutine Lifecycle Handler
 ---
