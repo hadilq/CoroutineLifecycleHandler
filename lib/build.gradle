@@ -37,18 +37,23 @@ android {
         targetSdkVersion Versions.targetSdk
         versionName Versions.libVersion
     }
+
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
 }
 
 dependencies {
     kapt Depends.lifecycleCompiler
 
     implementation Depends.kotlin
-    implementation Depends.lifecycle
+    api Depends.lifecycle
     implementation Depends.coroutine
     implementation Depends.coroutineAndroid
 
     testImplementation Depends.junit
     testImplementation Depends.mockito
+    testImplementation Depends.robolectric
     testImplementation Depends.coroutineTest
 }
 

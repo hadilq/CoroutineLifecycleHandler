@@ -16,7 +16,7 @@
 object Depends {
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
-    const val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
+    const val lifecycle = "com.github.hadilq:androidlifecyclehandler:${Versions.androidlifecyclehandler}"
     const val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycle}"
     const val coroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutine}"
     const val coroutineAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutine}"
@@ -24,4 +24,5 @@ object Depends {
     const val junit = "junit:junit:${Versions.junit}"
     const val mockito = "com.nhaarman:mockito-kotlin:${Versions.mockito}"
     const val coroutineTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutine}"
+    const val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
 }

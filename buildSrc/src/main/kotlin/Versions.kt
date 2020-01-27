@@ -30,16 +30,12 @@ object Versions {
 
     //Libraries
     const val lifecycle = "2.2.0-rc02"
+    const val androidlifecyclehandler = "0.2.0"
     const val appCompat = "1.1.0"
     const val coroutine = "1.3.3"
 
     //Unit Testing
     const val junit = "4.12"
     const val mockito = "1.4.0"
-
-    //Instrumentation Testing
-    const val testRunner = "1.2.0"
-    const val testRules = "1.2.0"
-    const val espresso = "3.2.0"
-
+    const val robolectric = "4.3"
 }
