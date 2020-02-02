@@ -20,6 +20,7 @@ package com.github.hadilq.coroutinelifecyclehandler
 import androidx.lifecycle.LifecycleOwner
 import com.github.hadilq.androidlifecyclehandler.AndroidLifecycleHandlerImpl
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlin.coroutines.EmptyCoroutineContext
@@ -141,3 +142,15 @@ fun <T> Flow<T>.observeOnErrorOnCompletion(
     suspend FlowCollector<T>.(Throwable) -> Unit,
     suspend FlowCollector<T>.(cause: Throwable?) -> Unit
 ) -> Unit = handler.observeOnErrorOnCompletion(this, scope)
+
+/***
+ * To wrap up the [BroadcastChannel] and hide it from the [LifecycleOwner], which is an Activity or a
+ * Fragment.
+ *
+ * The [handler] to help you with dependency inversion principle.
+ */
+fun <T> BroadcastChannel<T>.toLifecycleAware(
+    handler: CoroutineLifecycleHandler<T> = CoroutineLifecycleHandlerImpl(
+        AndroidLifecycleHandlerImpl()
+    )
+): LifecycleAware<T> = LifecycleAwareImpl(this, handler)

@@ -25,32 +25,32 @@ import org.robolectric.RobolectricTestRunner
 class ExtendedLifecycleAwareImplTest {
 
     @Test
-    fun `In case of born of Bundle LifecycleAware, load`() = runBlockingTest {
+    fun `In case of born of Bundle LifecycleAware, load`() {
         `test loading`<Bundle> { putBundle(ExtendedLifecycleAwareImpl.KEY, it) }
     }
 
     @Test
-    fun `In case of die of Bundle LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of Bundle LifecycleAware, save the cache`() {
         `test saving` { getBundle(ExtendedLifecycleAwareImpl.KEY)!! }
     }
 
     @Test
-    fun `In case of born of Parcelable LifecycleAware, load`() = runBlockingTest {
+    fun `In case of born of Parcelable LifecycleAware, load`() {
         `test loading`<Parcelable> { putParcelable(ExtendedLifecycleAwareImpl.KEY, it) }
     }
 
     @Test
-    fun `In case of die of Parcelable LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of Parcelable LifecycleAware, save the cache`() {
         `test saving` { getParcelable<Parcelable>(ExtendedLifecycleAwareImpl.KEY)!! }
     }
 
     @Test
-    fun `In case of born of String LifecycleAware, load`() = runBlockingTest {
+    fun `In case of born of String LifecycleAware, load`() {
         `test loading`("A") { putString(ExtendedLifecycleAwareImpl.KEY, it) }
     }
 
     @Test
-    fun `In case of die of String LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of String LifecycleAware, save the cache`() {
         `test saving`("A") { getString(ExtendedLifecycleAwareImpl.KEY)!! }
     }
 
@@ -60,7 +60,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of ArrayList String LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of ArrayList String LifecycleAware, save the cache`() {
         `test saving` { getStringArrayList(ExtendedLifecycleAwareImpl.KEY)!! }
     }
 
@@ -70,7 +70,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of CharSequence LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of CharSequence LifecycleAware, save the cache`() {
         `test saving` { getCharSequence(ExtendedLifecycleAwareImpl.KEY)!! }
     }
 
@@ -80,7 +80,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of Byte LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of Byte LifecycleAware, save the cache`() {
         `test saving`(2, true) { getByte(ExtendedLifecycleAwareImpl.KEY) }
     }
 
@@ -90,7 +90,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of Short LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of Short LifecycleAware, save the cache`() {
         `test saving`(1, true) { getShort(ExtendedLifecycleAwareImpl.KEY) }
     }
 
@@ -100,7 +100,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of Char LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of Char LifecycleAware, save the cache`() {
         `test saving`('a', true) { getChar(ExtendedLifecycleAwareImpl.KEY) }
     }
 
@@ -110,7 +110,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of Int LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of Int LifecycleAware, save the cache`() {
         `test saving`(1, true) { getInt(ExtendedLifecycleAwareImpl.KEY) }
     }
 
@@ -120,7 +120,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of Long LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of Long LifecycleAware, save the cache`() {
         `test saving`(1L, true) { getLong(ExtendedLifecycleAwareImpl.KEY) }
     }
 
@@ -130,7 +130,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of Float LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of Float LifecycleAware, save the cache`() {
         `test saving`(0.2f, true) { getFloat(ExtendedLifecycleAwareImpl.KEY) }
     }
 
@@ -140,7 +140,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of Double LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of Double LifecycleAware, save the cache`() {
         `test saving`(0.1, true) { getDouble(ExtendedLifecycleAwareImpl.KEY) }
     }
 
@@ -150,7 +150,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of Boolean LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of Boolean LifecycleAware, save the cache`() {
         `test saving`(value = true, supportAutoBoxing = true) { getBoolean(ExtendedLifecycleAwareImpl.KEY) }
     }
 
@@ -162,7 +162,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of Array Parcelable LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of Array Parcelable LifecycleAware, save the cache`() {
         `test saving`<Array<out Parcelable?>>(Array(0) { mock<Parcelable>() }) {
             getParcelableArray(ExtendedLifecycleAwareImpl.KEY)!!
         }
@@ -176,7 +176,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of Array String LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of Array String LifecycleAware, save the cache`() {
         `test saving`<Array<out String?>>(Array(0) { "" }) {
             getStringArray(ExtendedLifecycleAwareImpl.KEY)!!
         }
@@ -190,7 +190,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of Array CharSequence LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of Array CharSequence LifecycleAware, save the cache`() {
         `test saving`<Array<out CharSequence?>>(Array(0) { mock<CharSequence>() }) {
             getCharSequenceArray(ExtendedLifecycleAwareImpl.KEY)!!
         }
@@ -202,7 +202,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of ByteArray LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of ByteArray LifecycleAware, save the cache`() {
         `test saving`(ByteArray(0)) { getByteArray(ExtendedLifecycleAwareImpl.KEY)!! }
     }
 
@@ -212,7 +212,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of ShortArray LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of ShortArray LifecycleAware, save the cache`() {
         `test saving`(ShortArray(0)) { getShortArray(ExtendedLifecycleAwareImpl.KEY)!! }
     }
 
@@ -222,7 +222,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of CharArray LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of CharArray LifecycleAware, save the cache`() {
         `test saving`(CharArray(0)) { getCharArray(ExtendedLifecycleAwareImpl.KEY)!! }
     }
 
@@ -232,7 +232,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of IntArray LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of IntArray LifecycleAware, save the cache`() {
         `test saving`(IntArray(0)) { getIntArray(ExtendedLifecycleAwareImpl.KEY)!! }
     }
 
@@ -242,7 +242,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of LongArray LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of LongArray LifecycleAware, save the cache`() {
         `test saving`(LongArray(0)) { getLongArray(ExtendedLifecycleAwareImpl.KEY)!! }
     }
 
@@ -252,7 +252,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of FloatArray LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of FloatArray LifecycleAware, save the cache`() {
         `test saving`(FloatArray(0)) { getFloatArray(ExtendedLifecycleAwareImpl.KEY)!! }
     }
 
@@ -262,7 +262,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of DoubleArray LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of DoubleArray LifecycleAware, save the cache`() {
         `test saving`(DoubleArray(0)) { getDoubleArray(ExtendedLifecycleAwareImpl.KEY)!! }
     }
 
@@ -272,7 +272,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of BooleanArray LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of BooleanArray LifecycleAware, save the cache`() {
         `test saving`(BooleanArray(0)) { getBooleanArray(ExtendedLifecycleAwareImpl.KEY)!! }
     }
 
@@ -282,7 +282,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of ArrayList Parcelable LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of ArrayList Parcelable LifecycleAware, save the cache`() {
         `test saving` { getParcelableArrayList<Parcelable>(ExtendedLifecycleAwareImpl.KEY)!! }
     }
 
@@ -292,7 +292,7 @@ class ExtendedLifecycleAwareImplTest {
     }
 
     @Test
-    fun `In case of die of ArrayList Int LifecycleAware, save the cache`() = runBlockingTest {
+    fun `In case of die of ArrayList Int LifecycleAware, save the cache`() {
         `test saving` { getIntegerArrayList(ExtendedLifecycleAwareImpl.KEY)!! }
     }
 
@@ -351,6 +351,17 @@ class ExtendedLifecycleAwareImplTest {
             assert(result.run { getter() } === value)
         }
         publisher.cancel()
+    }
+
+    @Test
+    fun `in case of processor, calling observe would call handler observe`() {
+        val publisher = BroadcastChannel<String>(CONFLATED)
+        val handler = mock<CoroutineExtendedLifecycleHandler<String>>()
+        val lifecycleAware = publisher.toExtendedLifecycleAware(KEY, handler)
+
+        lifecycleAware.observe()
+
+        verify(handler).observe(any(), any(), any(), eq(KEY))
     }
 
     companion object {

@@ -17,10 +17,8 @@
 
 package com.github.hadilq.coroutinelifecyclehandler
 
-import androidx.lifecycle.LifecycleOwner
 import androidx.savedstate.SavedStateRegistryOwner
 import com.github.hadilq.androidlifecyclehandler.AndroidExtendedLifecycleHandlerImpl
-import com.github.hadilq.androidlifecyclehandler.AndroidLifecycleHandlerImpl
 import com.github.hadilq.androidlifecyclehandler.ExtendedLife
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.BroadcastChannel
@@ -167,21 +165,10 @@ fun <T> Flow<T>.observeOnErrorOnCompletion(
 ) -> Unit = handler.observeOnErrorOnCompletion(this, scope, life, key)
 
 /***
- * To wrap up the [BroadcastChannel] and hide it from the [LifecycleOwner], which is an Activity or a
- * Fragment.
- *
- * The [handler] to help you with dependency inversion principle.
- */
-fun <T> BroadcastChannel<T>.toLifecycleAware(
-    handler: CoroutineLifecycleHandler<T> = CoroutineLifecycleHandlerImpl(
-        AndroidLifecycleHandlerImpl()
-    )
-): LifecycleAware<T> = LifecycleAwareImpl(this, handler)
-
-/***
  * To wrap up the [BroadcastChannel] and hide it from the [SavedStateRegistryOwner], which is an Activity or a
  * Fragment.
  *
+ * The [key] is the key which returned saved state will be associated with.
  * The [handler] to help you with dependency inversion principle.
  */
 inline fun <reified T : Any> BroadcastChannel<T>.toExtendedLifecycleAware(
