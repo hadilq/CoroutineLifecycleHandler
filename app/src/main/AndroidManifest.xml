@@ -17,5 +17,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ScopeMainActivity"/>
+        <activity android:name=".MainViewModelActivity"/>
     </application>
 </manifest>

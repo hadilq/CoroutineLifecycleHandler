@@ -14,6 +14,19 @@ interface LifecycleAware<T> {
     /**
      * Observe the wrapped up [BroadcastChannel].
      *
+     * Example of use:
+     * ```
+     * class MyAndroidActivity : ComponentActivity {
+     *
+     *   override fun onCreate(savedInstanceState: Bundle?) {
+     *
+     *       (viewModel.stringEmitter.observe()) { testString ->
+     *           assert(testString == "Test")
+     *       }
+     *   }
+     * }
+     * ```
+     *
      * The [scope] is an optional Scope to have more control on the cancellations.
      * The [LifecycleOwner] is the Activity or Fragment.
      */

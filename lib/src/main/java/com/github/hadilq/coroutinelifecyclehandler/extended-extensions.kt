@@ -168,6 +168,19 @@ fun <T> Flow<T>.observeOnErrorOnCompletion(
  * To wrap up the [BroadcastChannel] and hide it from the [SavedStateRegistryOwner], which is an Activity or a
  * Fragment.
  *
+ * Example of use:
+ * ```
+ * class MyViewModel : ViewModel() {
+ *
+ *   private val extendedPublisher = BroadcastChannel<String>(CONFLATED)
+ *   val extendedStringEmitter = extendedPublisher.toExtendedLifecycleAware(KEY)
+ *
+ *   companion object {
+ *       private const val KEY = "key_to_save_string_emitter"
+ *   }
+ * }
+ * ```
+ *
  * The [key] is the key which returned saved state will be associated with.
  * The [handler] to help you with dependency inversion principle.
  */

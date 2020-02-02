@@ -147,6 +147,15 @@ fun <T> Flow<T>.observeOnErrorOnCompletion(
  * To wrap up the [BroadcastChannel] and hide it from the [LifecycleOwner], which is an Activity or a
  * Fragment.
  *
+ * Example of use:
+ * ```
+ * class MyViewModel : ViewModel() {
+ *
+ *   private val publisher = BroadcastChannel<String>(CONFLATED)
+ *   val stringEmitter = publisher.toLifecycleAware()
+ * }
+ * ```
+ *
  * The [handler] to help you with dependency inversion principle.
  */
 fun <T> BroadcastChannel<T>.toLifecycleAware(
