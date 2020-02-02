@@ -94,6 +94,17 @@ class MainActivity : ComponentActivity() {
             .catch { }
             .onCompletion { }
             .observeIn()()
+
+        // OR
+        flow
+            .onEach { }
+            .catch { }
+            .onCompletion { }
+            .observeIn(life, KEY)()
+    }
+
+    companion object {
+        private const val KEY = "key_to_save_the_data"
     }
 }
 ```

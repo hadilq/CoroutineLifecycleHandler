@@ -17,6 +17,7 @@ package com.github.hadilq.coroutinelifecyclehandler.sample
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import com.github.hadilq.androidlifecyclehandler.ExtendedLife
 import com.github.hadilq.coroutinelifecyclehandler.observe
 import com.github.hadilq.coroutinelifecyclehandler.observeIn
 import com.github.hadilq.coroutinelifecyclehandler.observeOnError
@@ -28,6 +29,13 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 
 class MainActivity : ComponentActivity() {
+
+    private val life = object : ExtendedLife {
+        override fun onBorn(bundle: Bundle?) {
+        }
+
+        override fun onDie(): Bundle = Bundle()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,9 +49,21 @@ class MainActivity : ComponentActivity() {
             .catch { }
             .onCompletion { }
             .observeIn()()
+
         (flow.observe())(::handleString)
         (flow.observeOnError())(::handleString, handleError())
         (flow.observeOnErrorOnCompletion())(::handleString, handleError(), handleCompletion())
+
+        // OR
+        flow
+            .onEach { }
+            .catch { }
+            .onCompletion { }
+            .observeIn(life, KEY)()
+
+        (flow.observe(life, KEY))(::handleString)
+        (flow.observeOnError(life, KEY))(::handleString, handleError())
+        (flow.observeOnErrorOnCompletion(life, KEY))(::handleString, handleError(), handleCompletion())
     }
 
     private suspend fun handleString(@Suppress("UNUSED_PARAMETER") s: String) {
@@ -53,5 +73,9 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun handleCompletion(): suspend FlowCollector<String>.(Throwable?) -> Unit = {
+    }
+
+    companion object {
+        private const val KEY = "key_to_save_the_data"
     }
 }

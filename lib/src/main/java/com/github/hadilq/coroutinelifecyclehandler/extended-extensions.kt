@@ -46,16 +46,16 @@ import kotlin.coroutines.EmptyCoroutineContext
  * ```
  *
  * The [Flow] is the upstream.
- * The [scope] is an optional Scope to have more control on the cancellations.
  * The [life] is for handling the bundle in [ExtendedLife].
  * The [key] is the key which returned saved state will be associated with.
+ * The [scope] is an optional Scope to have more control on the cancellations.
  * The [handler] to help you with dependency inversion principle.
  * The [SavedStateRegistryOwner] is the Activity or Fragment.
  */
 fun <T> Flow<T>.observeIn(
-    scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
-    key: String = "",
     life: ExtendedLife,
+    key: String = "",
+    scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
     handler: CoroutineExtendedLifecycleHandler<T> = CoroutineExtendedLifecycleHandlerImpl(
         AndroidExtendedLifecycleHandlerImpl()
     )
@@ -82,15 +82,16 @@ fun <T> Flow<T>.observeIn(
  * ```
  *
  * The [Flow] is the upstream.
- * The [scope] is an optional Scope to have more control on the cancellations.
  * The [life] is for handling the bundle in [ExtendedLife].
  * The [key] is the key which returned saved state will be associated with.
+ * The [scope] is an optional Scope to have more control on the cancellations.
  * The [handler] to help you with dependency inversion principle.
  * The [SavedStateRegistryOwner] is the Activity or Fragment.
  */
 fun <T> Flow<T>.observe(
-    scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext), key: String = "",
     life: ExtendedLife,
+    key: String = "",
+    scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
     handler: CoroutineExtendedLifecycleHandler<T> = CoroutineExtendedLifecycleHandlerImpl<T>(
         AndroidExtendedLifecycleHandlerImpl()
     )
@@ -113,16 +114,16 @@ fun <T> Flow<T>.observe(
  * ```
  *
  * The [Flow] is the upstream.
- * The [scope] is an optional Scope to have more control on the cancellations.
  * The [life] is for handling the bundle in [ExtendedLife].
  * The [key] is the key which returned saved state will be associated with.
+ * The [scope] is an optional Scope to have more control on the cancellations.
  * The [handler] to help you with dependency inversion principle.
  * The [SavedStateRegistryOwner] is the Activity or Fragment.
  */
 fun <T> Flow<T>.observeOnError(
-    scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
     life: ExtendedLife,
     key: String = "",
+    scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
     handler: CoroutineExtendedLifecycleHandler<T> = CoroutineExtendedLifecycleHandlerImpl(
         AndroidExtendedLifecycleHandlerImpl()
     )
@@ -145,16 +146,16 @@ fun <T> Flow<T>.observeOnError(
  * ```
  *
  * The [Flow] is the upstream.
- * The [scope] is an optional Scope to have more control on the cancellations.
  * The [life] is for handling the bundle in [ExtendedLife].
  * The [key] is the key which returned saved state will be associated with.
+ * The [scope] is an optional Scope to have more control on the cancellations.
  * The [handler] to help you with dependency inversion principle.
  * The [SavedStateRegistryOwner] is the Activity or Fragment.
  */
 fun <T> Flow<T>.observeOnErrorOnCompletion(
-    scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
     life: ExtendedLife,
     key: String = "",
+    scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
     handler: CoroutineExtendedLifecycleHandler<T> = CoroutineExtendedLifecycleHandlerImpl(
         AndroidExtendedLifecycleHandlerImpl()
     )
