@@ -43,26 +43,14 @@ class CoroutineExtendedLifecycleHandlerTest {
     val mockitoRule: MockitoRule = MockitoJUnit.rule()
 
     @Mock
-    private lateinit var mockObserver: Observer
+    private lateinit var mockObserver: Observer<String>
 
     @Mock
     private lateinit var life: ExtendedLife
 
     private lateinit var publisher: BroadcastChannel<String>
     private lateinit var owner: TestSavedStateRegistryOwner
-    private lateinit var observer: SuspendableImpl
-
-    interface Suspendable {
-        suspend fun call(s: String)
-    }
-
-    interface Observer {
-        fun call(s: String)
-    }
-
-    private class SuspendableImpl(val mock: Observer) : Suspendable {
-        override suspend fun call(s: String) = mock.call(s)
-    }
+    private lateinit var observer: SuspendableImpl<String>
 
     @Before
     fun setup() {
