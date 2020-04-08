@@ -20,6 +20,7 @@ package com.github.hadilq.coroutinelifecyclehandler
 import androidx.lifecycle.LifecycleOwner
 import com.github.hadilq.androidlifecyclehandler.AndroidLifeHandlerImpl
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
@@ -49,6 +50,7 @@ import kotlin.coroutines.EmptyCoroutineContext
  * The [handler] to help you with dependency inversion principle.
  * The [LifecycleOwner] is the Activity or Fragment.
  */
+@ExperimentalCoroutinesApi
 fun <T> Flow<T>.observeIn(
     scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
     handler: CoroutineLifeHandler<T> = CoroutineLifeHandlerImpl(AndroidLifeHandlerImpl())
@@ -78,6 +80,7 @@ fun <T> Flow<T>.observeIn(
  * The [handler] to help you with dependency inversion principle.
  * The [LifecycleOwner] is the Activity or Fragment.
  */
+@ExperimentalCoroutinesApi
 fun <T> Flow<T>.observe(
     scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
     handler: CoroutineLifeHandler<T> = CoroutineLifeHandlerImpl(AndroidLifeHandlerImpl())
@@ -105,6 +108,7 @@ fun <T> Flow<T>.observe(
  * The [handler] to help you with dependency inversion principle.
  * The [LifecycleOwner] is the Activity or Fragment.
  */
+@ExperimentalCoroutinesApi
 fun <T> Flow<T>.observeOnError(
     scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
     handler: CoroutineLifeHandler<T> = CoroutineLifeHandlerImpl(AndroidLifeHandlerImpl())
@@ -132,6 +136,7 @@ fun <T> Flow<T>.observeOnError(
  * The [handler] to help you with dependency inversion principle.
  * The [LifecycleOwner] is the Activity or Fragment.
  */
+@ExperimentalCoroutinesApi
 fun <T> Flow<T>.observeOnErrorOnCompletion(
     scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
     handler: CoroutineLifeHandler<T> = CoroutineLifeHandlerImpl(
@@ -158,6 +163,7 @@ fun <T> Flow<T>.observeOnErrorOnCompletion(
  *
  * The [handler] to help you with dependency inversion principle.
  */
+@ExperimentalCoroutinesApi
 fun <T> BroadcastChannel<T>.toLifeAware(
     handler: CoroutineLifeHandler<T> = CoroutineLifeHandlerImpl(
         AndroidLifeHandlerImpl()

@@ -1,7 +1,6 @@
 package com.github.hadilq.coroutinelifecyclehandler
 
 import androidx.lifecycle.LifecycleOwner
-import androidx.savedstate.SavedStateRegistryOwner
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlin.coroutines.EmptyCoroutineContext

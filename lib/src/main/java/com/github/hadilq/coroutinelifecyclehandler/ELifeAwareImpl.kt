@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import androidx.savedstate.SavedStateRegistryOwner
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.onEach
@@ -11,6 +12,7 @@ import kotlinx.coroutines.launch
 import java.util.ArrayList
 import kotlin.reflect.KClass
 
+@ExperimentalCoroutinesApi
 class ELifeAwareImpl<T : Any>(
     private val channel: BroadcastChannel<T>,
     private val handler: CoroutineELifeHandler<T>,

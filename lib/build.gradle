@@ -43,6 +43,12 @@ android {
     }
 }
 
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
+
 dependencies {
     kapt Depends.lifecycleCompiler
 

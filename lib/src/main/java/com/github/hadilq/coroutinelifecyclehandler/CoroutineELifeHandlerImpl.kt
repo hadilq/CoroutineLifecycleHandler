@@ -24,6 +24,7 @@ import com.github.hadilq.coroutinelifecyclehandler.EEntry.ObserveInEntry
 import com.github.hadilq.coroutinelifecyclehandler.EEntry.ObserveOnErrorEntry
 import com.github.hadilq.coroutinelifecyclehandler.EEntry.ObserveOnErrorOnCompletionEntry
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
@@ -35,6 +36,7 @@ import kotlinx.coroutines.flow.onEach
 /***
  * An implementation of [CoroutineELifeHandler].
  */
+@ExperimentalCoroutinesApi
 class CoroutineELifeHandlerImpl<T>(private val handler: AndroidELifeHandler) :
     CoroutineELifeHandler<T> {
 

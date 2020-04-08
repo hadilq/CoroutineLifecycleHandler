@@ -21,6 +21,7 @@ import androidx.savedstate.SavedStateRegistryOwner
 import com.github.hadilq.androidlifecyclehandler.AndroidELifeHandlerImpl
 import com.github.hadilq.androidlifecyclehandler.ELife
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
@@ -52,6 +53,7 @@ import kotlin.coroutines.EmptyCoroutineContext
  * The [handler] to help you with dependency inversion principle.
  * The [SavedStateRegistryOwner] is the Activity or Fragment.
  */
+@ExperimentalCoroutinesApi
 fun <T> Flow<T>.observeIn(
     life: ELife,
     key: String = "",
@@ -88,11 +90,12 @@ fun <T> Flow<T>.observeIn(
  * The [handler] to help you with dependency inversion principle.
  * The [SavedStateRegistryOwner] is the Activity or Fragment.
  */
+@ExperimentalCoroutinesApi
 fun <T> Flow<T>.observe(
     life: ELife,
     key: String = "",
     scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
-    handler: CoroutineELifeHandler<T> = CoroutineELifeHandlerImpl<T>(
+    handler: CoroutineELifeHandler<T> = CoroutineELifeHandlerImpl(
         AndroidELifeHandlerImpl()
     )
 ): SavedStateRegistryOwner.(suspend (T) -> Unit) -> Unit =
@@ -120,6 +123,7 @@ fun <T> Flow<T>.observe(
  * The [handler] to help you with dependency inversion principle.
  * The [SavedStateRegistryOwner] is the Activity or Fragment.
  */
+@ExperimentalCoroutinesApi
 fun <T> Flow<T>.observeOnError(
     life: ELife,
     key: String = "",
@@ -152,6 +156,7 @@ fun <T> Flow<T>.observeOnError(
  * The [handler] to help you with dependency inversion principle.
  * The [SavedStateRegistryOwner] is the Activity or Fragment.
  */
+@ExperimentalCoroutinesApi
 fun <T> Flow<T>.observeOnErrorOnCompletion(
     life: ELife,
     key: String = "",
@@ -185,6 +190,7 @@ fun <T> Flow<T>.observeOnErrorOnCompletion(
  * The [key] is the key which returned saved state will be associated with.
  * The [handler] to help you with dependency inversion principle.
  */
+@ExperimentalCoroutinesApi
 inline fun <reified T : Any> BroadcastChannel<T>.toELifeAware(
     key: String,
     handler: CoroutineELifeHandler<T> = CoroutineELifeHandlerImpl(
