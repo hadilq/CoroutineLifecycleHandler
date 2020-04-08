@@ -22,6 +22,7 @@ import com.github.hadilq.androidlifecyclehandler.AndroidELifeHandlerImpl
 import com.github.hadilq.androidlifecyclehandler.ELife
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
@@ -191,6 +192,7 @@ fun <T> Flow<T>.observeOnErrorOnCompletion(
  * The [handler] to help you with dependency inversion principle.
  */
 @ExperimentalCoroutinesApi
+@FlowPreview
 inline fun <reified T : Any> BroadcastChannel<T>.toELifeAware(
     key: String,
     handler: CoroutineELifeHandler<T> = CoroutineELifeHandlerImpl(
