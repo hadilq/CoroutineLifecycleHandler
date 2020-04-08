@@ -49,7 +49,7 @@ class MainViewModel : ViewModel() {
 
     private val extendedPublisher = BroadcastChannel<String>(CONFLATED)
 
-    val extendedStringEmitter = extendedPublisher.toExtendedLifecycleAware(KEY)
+    val extendedStringEmitter = extendedPublisher.toELifeAware(KEY)
 
     companion object {
         private const val KEY = "key_to_save_string_emitter"
