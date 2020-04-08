@@ -27,7 +27,7 @@ import kotlin.coroutines.EmptyCoroutineContext
  * A class to handle lifecycle of subscription and unsubscription of a [Flow]. Notice here we assume the
  * [LifecycleOwner] needs the emitted values of upstream just between [ON_START] and [ON_STOP] events.
  */
-interface CoroutineLifecycleHandler<T> {
+interface CoroutineLifeHandler<T> {
 
     /***
      * Creates a handler to sync the subscription.

@@ -30,7 +30,7 @@ object Versions {
 
     //Libraries
     const val lifecycle = "2.2.0-rc02"
-    const val androidlifecyclehandler = "0.2.0"
+    const val androidlifecyclehandler = "0.3.0"
     const val appCompat = "1.1.0"
     const val coroutine = "1.3.3"
 

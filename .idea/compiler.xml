@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="CoroutineLifecycleHandler" target="1.8" />
+      <module name="CoroutineLifecycleHandler.app" target="1.7" />
+      <module name="CoroutineLifecycleHandler.buildSrc" target="1.8" />
+      <module name="CoroutineLifecycleHandler.lib" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

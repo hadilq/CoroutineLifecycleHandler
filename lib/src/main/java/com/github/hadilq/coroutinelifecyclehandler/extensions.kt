@@ -18,7 +18,7 @@
 package com.github.hadilq.coroutinelifecyclehandler
 
 import androidx.lifecycle.LifecycleOwner
-import com.github.hadilq.androidlifecyclehandler.AndroidLifecycleHandlerImpl
+import com.github.hadilq.androidlifecyclehandler.AndroidLifeHandlerImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.Flow
@@ -51,7 +51,7 @@ import kotlin.coroutines.EmptyCoroutineContext
  */
 fun <T> Flow<T>.observeIn(
     scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
-    handler: CoroutineLifecycleHandler<T> = CoroutineLifecycleHandlerImpl(AndroidLifecycleHandlerImpl())
+    handler: CoroutineLifeHandler<T> = CoroutineLifeHandlerImpl(AndroidLifeHandlerImpl())
 ): LifecycleOwner.() -> Unit = handler.observeIn(this, scope)
 
 /***
@@ -80,7 +80,7 @@ fun <T> Flow<T>.observeIn(
  */
 fun <T> Flow<T>.observe(
     scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
-    handler: CoroutineLifecycleHandler<T> = CoroutineLifecycleHandlerImpl(AndroidLifecycleHandlerImpl())
+    handler: CoroutineLifeHandler<T> = CoroutineLifeHandlerImpl(AndroidLifeHandlerImpl())
 ): LifecycleOwner.(
     suspend (T) -> Unit
 ) -> Unit = handler.observe(this, scope)
@@ -107,7 +107,7 @@ fun <T> Flow<T>.observe(
  */
 fun <T> Flow<T>.observeOnError(
     scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
-    handler: CoroutineLifecycleHandler<T> = CoroutineLifecycleHandlerImpl(AndroidLifecycleHandlerImpl())
+    handler: CoroutineLifeHandler<T> = CoroutineLifeHandlerImpl(AndroidLifeHandlerImpl())
 ): LifecycleOwner.(
     suspend (T) -> Unit, suspend FlowCollector<T>.(Throwable) -> Unit
 ) -> Unit = handler.observeOnError(this, scope)
@@ -134,8 +134,8 @@ fun <T> Flow<T>.observeOnError(
  */
 fun <T> Flow<T>.observeOnErrorOnCompletion(
     scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
-    handler: CoroutineLifecycleHandler<T> = CoroutineLifecycleHandlerImpl(
-        AndroidLifecycleHandlerImpl()
+    handler: CoroutineLifeHandler<T> = CoroutineLifeHandlerImpl(
+        AndroidLifeHandlerImpl()
     )
 ): LifecycleOwner.(
     suspend (T) -> Unit,
@@ -158,8 +158,8 @@ fun <T> Flow<T>.observeOnErrorOnCompletion(
  *
  * The [handler] to help you with dependency inversion principle.
  */
-fun <T> BroadcastChannel<T>.toLifecycleAware(
-    handler: CoroutineLifecycleHandler<T> = CoroutineLifecycleHandlerImpl(
-        AndroidLifecycleHandlerImpl()
+fun <T> BroadcastChannel<T>.toLifeAware(
+    handler: CoroutineLifeHandler<T> = CoroutineLifeHandlerImpl(
+        AndroidLifeHandlerImpl()
     )
-): LifecycleAware<T> = LifecycleAwareImpl(this, handler)
+): LifeAware<T> = LifeAwareImpl(this, handler)

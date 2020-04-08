@@ -16,13 +16,13 @@
 package com.github.hadilq.coroutinelifecyclehandler
 
 import androidx.savedstate.SavedStateRegistryOwner
-import com.github.hadilq.androidlifecyclehandler.AndroidExtendedLifecycleHandler
-import com.github.hadilq.androidlifecyclehandler.ExtendedLife
+import com.github.hadilq.androidlifecyclehandler.AndroidELifeHandler
+import com.github.hadilq.androidlifecyclehandler.ELife
 import com.github.hadilq.androidlifecyclehandler.LifeSpan
-import com.github.hadilq.coroutinelifecyclehandler.ExtendedEntry.ObserveEntry
-import com.github.hadilq.coroutinelifecyclehandler.ExtendedEntry.ObserveInEntry
-import com.github.hadilq.coroutinelifecyclehandler.ExtendedEntry.ObserveOnErrorEntry
-import com.github.hadilq.coroutinelifecyclehandler.ExtendedEntry.ObserveOnErrorOnCompletionEntry
+import com.github.hadilq.coroutinelifecyclehandler.EEntry.ObserveEntry
+import com.github.hadilq.coroutinelifecyclehandler.EEntry.ObserveInEntry
+import com.github.hadilq.coroutinelifecyclehandler.EEntry.ObserveOnErrorEntry
+import com.github.hadilq.coroutinelifecyclehandler.EEntry.ObserveOnErrorOnCompletionEntry
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
@@ -33,29 +33,29 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 
 /***
- * An implementation of [CoroutineExtendedLifecycleHandler].
+ * An implementation of [CoroutineELifeHandler].
  */
-class CoroutineExtendedLifecycleHandlerImpl<T>(private val handler: AndroidExtendedLifecycleHandler) :
-    CoroutineExtendedLifecycleHandler<T> {
+class CoroutineELifeHandlerImpl<T>(private val handler: AndroidELifeHandler) :
+    CoroutineELifeHandler<T> {
 
     override fun observeIn(
         flow: Flow<T>,
         scope: CoroutineScope,
-        life: ExtendedLife,
+        life: ELife,
         key: String
     ): SavedStateRegistryOwner.() -> Unit = observeIn(flow.onLaunchIn(scope), life, key)
 
     override fun observe(
         flow: Flow<T>,
         scope: CoroutineScope,
-        life: ExtendedLife,
+        life: ELife,
         key: String
     ): SavedStateRegistryOwner.(suspend (T) -> Unit) -> Unit = observe(flow.onEachLaunchIn(scope), life, key)
 
     override fun observeOnError(
         flow: Flow<T>,
         scope: CoroutineScope,
-        life: ExtendedLife,
+        life: ELife,
         key: String
     ): SavedStateRegistryOwner.(suspend (T) -> Unit, suspend FlowCollector<T>.(Throwable) -> Unit) -> Unit =
         observeOnError(flow.onEachOnErrorLaunchIn(scope), life, key)
@@ -63,7 +63,7 @@ class CoroutineExtendedLifecycleHandlerImpl<T>(private val handler: AndroidExten
     override fun observeOnErrorOnCompletion(
         flow: Flow<T>,
         scope: CoroutineScope,
-        life: ExtendedLife,
+        life: ELife,
         key: String
     ): SavedStateRegistryOwner.(
         suspend (T) -> Unit,
@@ -73,7 +73,7 @@ class CoroutineExtendedLifecycleHandlerImpl<T>(private val handler: AndroidExten
 
     private fun observeIn(
         subscribe: () -> Job,
-        life: ExtendedLife,
+        life: ELife,
         key: String
     ): SavedStateRegistryOwner.() -> Unit = {
         observeEntry(ObserveInEntry(subscribe, life), key)
@@ -81,7 +81,7 @@ class CoroutineExtendedLifecycleHandlerImpl<T>(private val handler: AndroidExten
 
     private fun observe(
         subscribe: (suspend (T) -> Unit) -> Job,
-        life: ExtendedLife,
+        life: ELife,
         key: String
     ): SavedStateRegistryOwner.(suspend (T) -> Unit) -> Unit = { observer ->
         observeEntry(ObserveEntry(observer, subscribe, life), key)
@@ -92,7 +92,7 @@ class CoroutineExtendedLifecycleHandlerImpl<T>(private val handler: AndroidExten
             suspend (T) -> Unit,
             suspend FlowCollector<T>.(Throwable) -> Unit
         ) -> Job,
-        life: ExtendedLife,
+        life: ELife,
         key: String
     ): SavedStateRegistryOwner.(
         suspend (T) -> Unit,
@@ -107,7 +107,7 @@ class CoroutineExtendedLifecycleHandlerImpl<T>(private val handler: AndroidExten
             suspend FlowCollector<T>.(Throwable) -> Unit,
             suspend FlowCollector<T>.(Throwable?) -> Unit
         ) -> Job,
-        life: ExtendedLife,
+        life: ELife,
         key: String
     ): SavedStateRegistryOwner.(
         suspend (T) -> Unit,
@@ -117,7 +117,7 @@ class CoroutineExtendedLifecycleHandlerImpl<T>(private val handler: AndroidExten
         observeEntry(ObserveOnErrorOnCompletionEntry(observer, onError, onCompletion, subscribe, life), key)
     }
 
-    private fun SavedStateRegistryOwner.observeEntry(entry: ExtendedEntry<T>, key: String) {
+    private fun SavedStateRegistryOwner.observeEntry(entry: EEntry<T>, key: String) {
         handler.register(this, entry, LifeSpan.STARTED, key)
     }
 

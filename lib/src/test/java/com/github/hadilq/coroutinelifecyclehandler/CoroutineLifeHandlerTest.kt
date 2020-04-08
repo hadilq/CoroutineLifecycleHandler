@@ -36,7 +36,7 @@ import org.robolectric.RobolectricTestRunner
 @FlowPreview
 @ExperimentalCoroutinesApi
 @RunWith(RobolectricTestRunner::class)
-class CoroutineLifecycleHandlerTest {
+class CoroutineLifeHandlerTest {
 
     @get:Rule
     val mockitoRule: MockitoRule = MockitoJUnit.rule()

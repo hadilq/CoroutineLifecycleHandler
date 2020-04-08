@@ -5,10 +5,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.asFlow
 
-class LifecycleAwareImpl<T>(
+class LifeAwareImpl<T>(
     private val channel: BroadcastChannel<T>,
-    private val handler: CoroutineLifecycleHandler<T>
-) : LifecycleAware<T> {
+    private val handler: CoroutineLifeHandler<T>
+) : LifeAware<T> {
 
     override fun observe(scope: CoroutineScope): LifecycleOwner.(
         suspend (T) -> Unit

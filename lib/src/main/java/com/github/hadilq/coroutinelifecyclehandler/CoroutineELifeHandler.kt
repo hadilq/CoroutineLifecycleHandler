@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle.Event.ON_START
 import androidx.lifecycle.Lifecycle.Event.ON_STOP
 import androidx.savedstate.SavedStateRegistryOwner
-import com.github.hadilq.androidlifecyclehandler.ExtendedLife
+import com.github.hadilq.androidlifecyclehandler.ELife
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
@@ -30,21 +30,21 @@ import kotlinx.coroutines.flow.FlowCollector
  * [SavedStateRegistryOwner], which is an [Activity] or a [Fragment] needs the emitted values of upstream after
  * [ON_START] and before [ON_STOP] or [Activity.onSaveInstanceState] or [Fragment.onSaveInstanceState] events.
  */
-interface CoroutineExtendedLifecycleHandler<T> {
+interface CoroutineELifeHandler<T> {
 
     /***
      * Creates a handler to sync the subscription.
      *
      * The [flow] is the upstream.
      * The [scope] is an optional Scope to have more control on the cancellations.
-     * The [life] is for handling the bundle in [ExtendedLife].
+     * The [life] is for handling the bundle in [ELife].
      * The [key] is the key which returned saved state will be associated with.
      * The [SavedStateRegistryOwner] is the Activity or Fragment.
      */
     fun observeIn(
         flow: Flow<T>,
         scope: CoroutineScope,
-        life: ExtendedLife,
+        life: ELife,
         key: String = ""
     ): SavedStateRegistryOwner.() -> Unit
 
@@ -53,14 +53,14 @@ interface CoroutineExtendedLifecycleHandler<T> {
      *
      * The [flow] is the upstream.
      * The [scope] is an optional Scope to have more control on the cancellations.
-     * The [life] is for handling the bundle in [ExtendedLife].
+     * The [life] is for handling the bundle in [ELife].
      * The [key] is the key which returned saved state will be associated with.
      * The [SavedStateRegistryOwner] is the Activity or Fragment.
      */
     fun observe(
         flow: Flow<T>,
         scope: CoroutineScope,
-        life: ExtendedLife,
+        life: ELife,
         key: String = ""
     ): SavedStateRegistryOwner.(suspend (T) -> Unit) -> Unit
 
@@ -69,14 +69,14 @@ interface CoroutineExtendedLifecycleHandler<T> {
      *
      * The [flow] is the upstream.
      * The [scope] is an optional Scope to have more control on the cancellations.
-     * The [life] is for handling the bundle in [ExtendedLife].
+     * The [life] is for handling the bundle in [ELife].
      * The [key] is the key which returned saved state will be associated with.
      * The [SavedStateRegistryOwner] is the Activity or Fragment.
      */
     fun observeOnError(
         flow: Flow<T>,
         scope: CoroutineScope,
-        life: ExtendedLife,
+        life: ELife,
         key: String = ""
     ): SavedStateRegistryOwner.(suspend (T) -> Unit, suspend FlowCollector<T>.(Throwable) -> Unit) -> Unit
 
@@ -85,14 +85,14 @@ interface CoroutineExtendedLifecycleHandler<T> {
      *
      * The [flow] is the upstream.
      * The [scope] is an optional Scope to have more control on the cancellations.
-     * The [life] is for handling the bundle in [ExtendedLife].
+     * The [life] is for handling the bundle in [ELife].
      * The [key] is the key which returned saved state will be associated with.
      * The [SavedStateRegistryOwner] is the Activity or Fragment.
      */
     fun observeOnErrorOnCompletion(
         flow: Flow<T>,
         scope: CoroutineScope,
-        life: ExtendedLife,
+        life: ELife,
         key: String = ""
     ): SavedStateRegistryOwner.(
         suspend (T) -> Unit,

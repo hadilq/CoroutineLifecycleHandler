@@ -9,7 +9,7 @@ import kotlin.coroutines.EmptyCoroutineContext
 /***
  * Uses for hiding [BroadcastChannel] from [LifecycleOwner] and prepare it for observation by [LifecycleOwner].
  */
-interface LifecycleAware<T> {
+interface LifeAware<T> {
 
     /**
      * Observe the wrapped up [BroadcastChannel].

@@ -11,12 +11,12 @@ import kotlinx.coroutines.launch
 import java.util.ArrayList
 import kotlin.reflect.KClass
 
-class ExtendedLifecycleAwareImpl<T : Any>(
+class ELifeAwareImpl<T : Any>(
     private val channel: BroadcastChannel<T>,
-    private val handler: CoroutineExtendedLifecycleHandler<T>,
+    private val handler: CoroutineELifeHandler<T>,
     private val key: String,
     private val clazz: KClass<T>
-) : ExtendedLifecycleAware<T> {
+) : ELifeAware<T> {
 
     private var cache: T? = null
     private var coroutineScope: CoroutineScope? = null

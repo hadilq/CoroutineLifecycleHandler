@@ -15,7 +15,7 @@
  */
 package com.github.hadilq.coroutinelifecyclehandler
 
-import com.github.hadilq.androidlifecyclehandler.ExtendedLife
+import com.github.hadilq.androidlifecyclehandler.ELife
 import com.nhaarman.mockito_kotlin.never
 import com.nhaarman.mockito_kotlin.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -37,7 +37,7 @@ import org.robolectric.RobolectricTestRunner
 @FlowPreview
 @ExperimentalCoroutinesApi
 @RunWith(RobolectricTestRunner::class)
-class CoroutineExtendedLifecycleHandlerTest {
+class CoroutineELifeHandlerTest {
 
     @get:Rule
     val mockitoRule: MockitoRule = MockitoJUnit.rule()
@@ -46,7 +46,7 @@ class CoroutineExtendedLifecycleHandlerTest {
     private lateinit var mockObserver: Observer<String>
 
     @Mock
-    private lateinit var life: ExtendedLife
+    private lateinit var life: ELife
 
     private lateinit var publisher: BroadcastChannel<String>
     private lateinit var owner: TestSavedStateRegistryOwner

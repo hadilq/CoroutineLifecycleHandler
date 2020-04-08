@@ -18,8 +18,8 @@
 package com.github.hadilq.coroutinelifecyclehandler
 
 import androidx.savedstate.SavedStateRegistryOwner
-import com.github.hadilq.androidlifecyclehandler.AndroidExtendedLifecycleHandlerImpl
-import com.github.hadilq.androidlifecyclehandler.ExtendedLife
+import com.github.hadilq.androidlifecyclehandler.AndroidELifeHandlerImpl
+import com.github.hadilq.androidlifecyclehandler.ELife
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.Flow
@@ -46,18 +46,18 @@ import kotlin.coroutines.EmptyCoroutineContext
  * ```
  *
  * The [Flow] is the upstream.
- * The [life] is for handling the bundle in [ExtendedLife].
+ * The [life] is for handling the bundle in [ELife].
  * The [key] is the key which returned saved state will be associated with.
  * The [scope] is an optional Scope to have more control on the cancellations.
  * The [handler] to help you with dependency inversion principle.
  * The [SavedStateRegistryOwner] is the Activity or Fragment.
  */
 fun <T> Flow<T>.observeIn(
-    life: ExtendedLife,
+    life: ELife,
     key: String = "",
     scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
-    handler: CoroutineExtendedLifecycleHandler<T> = CoroutineExtendedLifecycleHandlerImpl(
-        AndroidExtendedLifecycleHandlerImpl()
+    handler: CoroutineELifeHandler<T> = CoroutineELifeHandlerImpl(
+        AndroidELifeHandlerImpl()
     )
 ): SavedStateRegistryOwner.() -> Unit =
     handler.observeIn(this, scope, life, key)
@@ -82,18 +82,18 @@ fun <T> Flow<T>.observeIn(
  * ```
  *
  * The [Flow] is the upstream.
- * The [life] is for handling the bundle in [ExtendedLife].
+ * The [life] is for handling the bundle in [ELife].
  * The [key] is the key which returned saved state will be associated with.
  * The [scope] is an optional Scope to have more control on the cancellations.
  * The [handler] to help you with dependency inversion principle.
  * The [SavedStateRegistryOwner] is the Activity or Fragment.
  */
 fun <T> Flow<T>.observe(
-    life: ExtendedLife,
+    life: ELife,
     key: String = "",
     scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
-    handler: CoroutineExtendedLifecycleHandler<T> = CoroutineExtendedLifecycleHandlerImpl<T>(
-        AndroidExtendedLifecycleHandlerImpl()
+    handler: CoroutineELifeHandler<T> = CoroutineELifeHandlerImpl<T>(
+        AndroidELifeHandlerImpl()
     )
 ): SavedStateRegistryOwner.(suspend (T) -> Unit) -> Unit =
     handler.observe(this, scope, life, key)
@@ -114,18 +114,18 @@ fun <T> Flow<T>.observe(
  * ```
  *
  * The [Flow] is the upstream.
- * The [life] is for handling the bundle in [ExtendedLife].
+ * The [life] is for handling the bundle in [ELife].
  * The [key] is the key which returned saved state will be associated with.
  * The [scope] is an optional Scope to have more control on the cancellations.
  * The [handler] to help you with dependency inversion principle.
  * The [SavedStateRegistryOwner] is the Activity or Fragment.
  */
 fun <T> Flow<T>.observeOnError(
-    life: ExtendedLife,
+    life: ELife,
     key: String = "",
     scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
-    handler: CoroutineExtendedLifecycleHandler<T> = CoroutineExtendedLifecycleHandlerImpl(
-        AndroidExtendedLifecycleHandlerImpl()
+    handler: CoroutineELifeHandler<T> = CoroutineELifeHandlerImpl(
+        AndroidELifeHandlerImpl()
     )
 ): SavedStateRegistryOwner.(suspend (T) -> Unit, suspend FlowCollector<T>.(Throwable) -> Unit) -> Unit =
     handler.observeOnError(this, scope, life, key)
@@ -146,18 +146,18 @@ fun <T> Flow<T>.observeOnError(
  * ```
  *
  * The [Flow] is the upstream.
- * The [life] is for handling the bundle in [ExtendedLife].
+ * The [life] is for handling the bundle in [ELife].
  * The [key] is the key which returned saved state will be associated with.
  * The [scope] is an optional Scope to have more control on the cancellations.
  * The [handler] to help you with dependency inversion principle.
  * The [SavedStateRegistryOwner] is the Activity or Fragment.
  */
 fun <T> Flow<T>.observeOnErrorOnCompletion(
-    life: ExtendedLife,
+    life: ELife,
     key: String = "",
     scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext),
-    handler: CoroutineExtendedLifecycleHandler<T> = CoroutineExtendedLifecycleHandlerImpl(
-        AndroidExtendedLifecycleHandlerImpl()
+    handler: CoroutineELifeHandler<T> = CoroutineELifeHandlerImpl(
+        AndroidELifeHandlerImpl()
     )
 ): SavedStateRegistryOwner.(
     suspend (T) -> Unit,
@@ -174,7 +174,7 @@ fun <T> Flow<T>.observeOnErrorOnCompletion(
  * class MyViewModel : ViewModel() {
  *
  *   private val extendedPublisher = BroadcastChannel<String>(CONFLATED)
- *   val extendedStringEmitter = extendedPublisher.toExtendedLifecycleAware(KEY)
+ *   val extendedStringEmitter = extendedPublisher.toELifeAware(KEY)
  *
  *   companion object {
  *       private const val KEY = "key_to_save_string_emitter"
@@ -185,9 +185,9 @@ fun <T> Flow<T>.observeOnErrorOnCompletion(
  * The [key] is the key which returned saved state will be associated with.
  * The [handler] to help you with dependency inversion principle.
  */
-inline fun <reified T : Any> BroadcastChannel<T>.toExtendedLifecycleAware(
+inline fun <reified T : Any> BroadcastChannel<T>.toELifeAware(
     key: String,
-    handler: CoroutineExtendedLifecycleHandler<T> = CoroutineExtendedLifecycleHandlerImpl(
-        AndroidExtendedLifecycleHandlerImpl()
+    handler: CoroutineELifeHandler<T> = CoroutineELifeHandlerImpl(
+        AndroidELifeHandlerImpl()
     )
-): ExtendedLifecycleAware<T> = ExtendedLifecycleAwareImpl(this, handler, key, T::class)
+): ELifeAware<T> = ELifeAwareImpl(this, handler, key, T::class)

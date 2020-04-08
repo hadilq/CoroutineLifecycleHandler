@@ -1,7 +1,7 @@
 package com.github.hadilq.coroutinelifecyclehandler
 
 import androidx.savedstate.SavedStateRegistryOwner
-import com.github.hadilq.androidlifecyclehandler.ExtendedLife
+import com.github.hadilq.androidlifecyclehandler.ELife
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlin.coroutines.EmptyCoroutineContext
@@ -23,7 +23,7 @@ import kotlin.coroutines.EmptyCoroutineContext
  * }
  * ```
  */
-interface ExtendedLifecycleAware<T> : ExtendedLife {
+interface ELifeAware<T> : ELife {
 
     /**
      * Observe the wrapped up [BroadcastChannel].

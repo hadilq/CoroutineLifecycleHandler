@@ -1,11 +1,11 @@
 package com.github.hadilq.coroutinelifecyclehandler
 
 import android.os.Bundle
-import com.github.hadilq.androidlifecyclehandler.ExtendedLife
+import com.github.hadilq.androidlifecyclehandler.ELife
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.FlowCollector
 
-sealed class ExtendedEntry<T>(val life: ExtendedLife) : ExtendedLife {
+sealed class EEntry<T>(val life: ELife) : ELife {
     protected var job: Job? = null
 
     override fun onDie(): Bundle {
@@ -14,8 +14,8 @@ sealed class ExtendedEntry<T>(val life: ExtendedLife) : ExtendedLife {
         return life.onDie()
     }
 
-    class ObserveInEntry<T>(val subs: () -> Job, life: ExtendedLife) :
-        ExtendedEntry<T>(life) {
+    class ObserveInEntry<T>(val subs: () -> Job, life: ELife) :
+        EEntry<T>(life) {
 
         override fun onBorn(bundle: Bundle?) {
             life.onBorn(bundle)
@@ -26,8 +26,8 @@ sealed class ExtendedEntry<T>(val life: ExtendedLife) : ExtendedLife {
     class ObserveEntry<T>(
         private val observer: suspend (T) -> Unit,
         val subscribe: (suspend (T) -> Unit) -> Job,
-        life: ExtendedLife
-    ) : ExtendedEntry<T>(life) {
+        life: ELife
+    ) : EEntry<T>(life) {
 
         override fun onBorn(bundle: Bundle?) {
             life.onBorn(bundle)
@@ -39,8 +39,8 @@ sealed class ExtendedEntry<T>(val life: ExtendedLife) : ExtendedLife {
         private val onEach: suspend (T) -> Unit,
         private val onError: suspend FlowCollector<T>.(Throwable) -> Unit,
         val subscribe: (suspend (T) -> Unit, suspend FlowCollector<T>.(Throwable) -> Unit) -> Job,
-        life: ExtendedLife
-    ) : ExtendedEntry<T>(life) {
+        life: ELife
+    ) : EEntry<T>(life) {
 
         override fun onBorn(bundle: Bundle?) {
             life.onBorn(bundle)
@@ -57,8 +57,8 @@ sealed class ExtendedEntry<T>(val life: ExtendedLife) : ExtendedLife {
             suspend FlowCollector<T>.(Throwable) -> Unit,
             suspend FlowCollector<T>.(Throwable?) -> Unit
         ) -> Job,
-        life: ExtendedLife
-    ) : ExtendedEntry<T>(life) {
+        life: ELife
+    ) : EEntry<T>(life) {
 
         override fun onBorn(bundle: Bundle?) {
             life.onBorn(bundle)

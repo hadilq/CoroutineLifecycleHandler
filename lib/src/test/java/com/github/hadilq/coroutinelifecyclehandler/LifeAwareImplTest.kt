@@ -7,13 +7,13 @@ import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.Channel
 import org.junit.Test
 
-class LifecycleAwareImplTest {
+class LifeAwareImplTest {
 
     @Test
     fun `in case of processor, calling observe would call handler observe`() {
         val publisher = BroadcastChannel<String>(Channel.CONFLATED)
-        val handler = mock<CoroutineLifecycleHandler<String>>()
-        val lifecycleAware = publisher.toLifecycleAware(handler)
+        val handler = mock<CoroutineLifeHandler<String>>()
+        val lifecycleAware = publisher.toLifeAware(handler)
 
         lifecycleAware.observe()
 

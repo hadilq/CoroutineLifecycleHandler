@@ -16,7 +16,7 @@
 package com.github.hadilq.coroutinelifecyclehandler
 
 import androidx.lifecycle.LifecycleOwner
-import com.github.hadilq.androidlifecyclehandler.AndroidLifecycleHandler
+import com.github.hadilq.androidlifecyclehandler.AndroidLifeHandler
 import com.github.hadilq.androidlifecyclehandler.LifeSpan
 import com.github.hadilq.coroutinelifecyclehandler.Entry.ObserveEntry
 import com.github.hadilq.coroutinelifecyclehandler.Entry.ObserveInEntry
@@ -32,10 +32,10 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 
 /***
- * An implementation of [CoroutineLifecycleHandler].
+ * An implementation of [CoroutineLifeHandler].
  */
-internal class CoroutineLifecycleHandlerImpl<T>(private val handler: AndroidLifecycleHandler) :
-    CoroutineLifecycleHandler<T> {
+internal class CoroutineLifeHandlerImpl<T>(private val handler: AndroidLifeHandler) :
+    CoroutineLifeHandler<T> {
 
     override fun observeIn(
         flow: Flow<T>,

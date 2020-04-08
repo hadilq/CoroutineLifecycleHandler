@@ -46,8 +46,8 @@ android {
 dependencies {
     kapt Depends.lifecycleCompiler
 
-    implementation Depends.kotlin
     api Depends.lifecycle
+    implementation Depends.kotlin
     implementation Depends.coroutine
     implementation Depends.coroutineAndroid
 
