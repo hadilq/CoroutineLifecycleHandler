@@ -17,7 +17,7 @@ package com.github.hadilq.coroutinelifecyclehandler.sample
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import com.github.hadilq.androidlifecyclehandler.ExtendedLife
+import com.github.hadilq.androidlifecyclehandler.ELife
 import com.github.hadilq.coroutinelifecyclehandler.observe
 import com.github.hadilq.coroutinelifecyclehandler.observeIn
 import com.github.hadilq.coroutinelifecyclehandler.observeOnError
@@ -30,7 +30,7 @@ import kotlinx.coroutines.flow.onEach
 
 class MainActivity : ComponentActivity() {
 
-    private val life = object : ExtendedLife {
+    private val life = object : ELife {
         override fun onBorn(bundle: Bundle?) {
         }
 
