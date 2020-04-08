@@ -4,6 +4,8 @@ Changelog
 0.3.0
 -----
 
+_2020-04-08_
+
 Renaming:
  - `AndroidExtendedLifecycleHandlerImpl` to `AndroidELifecHandlerImpl`
  - `AndroidExtendedLifecycleHandler` to `AndroidELifecHandler`
