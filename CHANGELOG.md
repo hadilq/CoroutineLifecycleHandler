@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.3.1
+-----
+
+_2020-04-08_
+
+Add `@ExperimentalCoroutinesApi` and `@FlowPreview` annotations.
+
 0.3.0
 -----
 
