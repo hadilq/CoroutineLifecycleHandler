@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.3.2
+-----
+
+_2020-04-09_
+
+Fix resolving problem.
+
 0.3.1
 -----
 
