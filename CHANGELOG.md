@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.3.3
+-----
+
+_2020-04-11_
+
+Add `Flow.toLife` and `Flow.toELife` extension functions.
+
 0.3.2
 -----
 
