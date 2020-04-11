@@ -19,17 +19,11 @@ import androidx.savedstate.SavedStateRegistryOwner
 import com.github.hadilq.androidlifecyclehandler.AndroidELifeHandler
 import com.github.hadilq.androidlifecyclehandler.ELife
 import com.github.hadilq.androidlifecyclehandler.LifeSpan
-import com.github.hadilq.coroutinelifecyclehandler.EEntry.ObserveEntry
-import com.github.hadilq.coroutinelifecyclehandler.EEntry.ObserveInEntry
-import com.github.hadilq.coroutinelifecyclehandler.EEntry.ObserveOnErrorEntry
-import com.github.hadilq.coroutinelifecyclehandler.EEntry.ObserveOnErrorOnCompletionEntry
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 
@@ -45,14 +39,18 @@ class CoroutineELifeHandlerImpl<T>(private val handler: AndroidELifeHandler) :
         scope: CoroutineScope,
         life: ELife,
         key: String
-    ): SavedStateRegistryOwner.() -> Unit = observeIn(flow.onLaunchIn(scope), life, key)
+    ): SavedStateRegistryOwner.() -> Unit = {
+        observeEntry(flow.toELife(life, scope), key)
+    }
 
     override fun observe(
         flow: Flow<T>,
         scope: CoroutineScope,
         life: ELife,
         key: String
-    ): SavedStateRegistryOwner.(suspend (T) -> Unit) -> Unit = observe(flow.onEachLaunchIn(scope), life, key)
+    ): SavedStateRegistryOwner.(suspend (T) -> Unit) -> Unit = { observer ->
+        observeEntry(flow.onEach(observer).toELife(life, scope), key)
+    }
 
     override fun observeOnError(
         flow: Flow<T>,
@@ -60,7 +58,9 @@ class CoroutineELifeHandlerImpl<T>(private val handler: AndroidELifeHandler) :
         life: ELife,
         key: String
     ): SavedStateRegistryOwner.(suspend (T) -> Unit, suspend FlowCollector<T>.(Throwable) -> Unit) -> Unit =
-        observeOnError(flow.onEachOnErrorLaunchIn(scope), life, key)
+        { observer, onError ->
+            observeEntry(flow.onEach(observer).catch(onError).toELife(life, scope), key)
+        }
 
     override fun observeOnErrorOnCompletion(
         flow: Flow<T>,
@@ -71,76 +71,16 @@ class CoroutineELifeHandlerImpl<T>(private val handler: AndroidELifeHandler) :
         suspend (T) -> Unit,
         suspend FlowCollector<T>.(Throwable) -> Unit,
         suspend FlowCollector<T>.(cause: Throwable?) -> Unit
-    ) -> Unit = observeOnErrorOnCompletion(flow.onEachOnErrorOnCompletionLaunchIn(scope), life, key)
-
-    private fun observeIn(
-        subscribe: () -> Job,
-        life: ELife,
-        key: String
-    ): SavedStateRegistryOwner.() -> Unit = {
-        observeEntry(ObserveInEntry(subscribe, life), key)
-    }
-
-    private fun observe(
-        subscribe: (suspend (T) -> Unit) -> Job,
-        life: ELife,
-        key: String
-    ): SavedStateRegistryOwner.(suspend (T) -> Unit) -> Unit = { observer ->
-        observeEntry(ObserveEntry(observer, subscribe, life), key)
-    }
-
-    private fun observeOnError(
-        subscribe: (
-            suspend (T) -> Unit,
-            suspend FlowCollector<T>.(Throwable) -> Unit
-        ) -> Job,
-        life: ELife,
-        key: String
-    ): SavedStateRegistryOwner.(
-        suspend (T) -> Unit,
-        suspend FlowCollector<T>.(Throwable) -> Unit
-    ) -> Unit = { observer, onError ->
-        observeEntry(ObserveOnErrorEntry(observer, onError, subscribe, life), key)
-    }
-
-    private fun observeOnErrorOnCompletion(
-        subscribe: (
-            suspend (T) -> Unit,
-            suspend FlowCollector<T>.(Throwable) -> Unit,
-            suspend FlowCollector<T>.(Throwable?) -> Unit
-        ) -> Job,
-        life: ELife,
-        key: String
-    ): SavedStateRegistryOwner.(
-        suspend (T) -> Unit,
-        suspend FlowCollector<T>.(Throwable) -> Unit,
-        suspend FlowCollector<T>.(Throwable?) -> Unit
     ) -> Unit = { observer, onError, onCompletion ->
-        observeEntry(ObserveOnErrorOnCompletionEntry(observer, onError, onCompletion, subscribe, life), key)
+        observeEntry(
+            flow.onEach(observer)
+                .catch(onError)
+                .onCompletion(onCompletion).toELife(life, scope),
+            key
+        )
     }
 
-    private fun SavedStateRegistryOwner.observeEntry(entry: EEntry<T>, key: String) {
+    private fun SavedStateRegistryOwner.observeEntry(entry: EEntry, key: String) {
         handler.register(this, entry, LifeSpan.STARTED, key)
-    }
-
-    private fun <T> Flow<T>.onLaunchIn(scope: CoroutineScope): () -> Job = { launchIn(scope) }
-
-    private fun <T> Flow<T>.onEachLaunchIn(scope: CoroutineScope): (suspend (T) -> Unit) -> Job = { observer ->
-        onEach(observer).launchIn(scope)
-    }
-
-    private fun <T> Flow<T>.onEachOnErrorLaunchIn(scope: CoroutineScope): (
-        suspend (T) -> Unit,
-        suspend FlowCollector<T>.(Throwable) -> Unit
-    ) -> Job = { observer, onError ->
-        onEach(observer).catch(onError).launchIn(scope)
-    }
-
-    private fun <T> Flow<T>.onEachOnErrorOnCompletionLaunchIn(scope: CoroutineScope): (
-        suspend (T) -> Unit,
-        suspend FlowCollector<T>.(Throwable) -> Unit,
-        suspend FlowCollector<T>.(cause: Throwable?) -> Unit
-    ) -> Job = { observer, onError, onCompletion ->
-        onEach(observer).catch(onError).onCompletion(onCompletion).launchIn(scope)
     }
 }

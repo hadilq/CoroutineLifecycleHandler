@@ -1,58 +1,31 @@
 package com.github.hadilq.coroutinelifecyclehandler
 
 import com.github.hadilq.androidlifecyclehandler.Life
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.launchIn
+import kotlin.coroutines.EmptyCoroutineContext
 
-sealed class Entry<T> : Life {
-    protected var job: Job? = null
+class Entry(val subs: () -> Job) : Life {
+
+    private var job: Job? = null
+
+    override fun onBorn() {
+        job = subs()
+    }
 
     override fun onDie() {
         job?.cancel()
         job = null
     }
-
-    class ObserveInEntry<T>(val subs: () -> Job) : Entry<T>() {
-
-        override fun onBorn() {
-            job = subs()
-        }
-    }
-
-    class ObserveEntry<T>(
-        private val observer: suspend (T) -> Unit,
-        val subscribe: (suspend (T) -> Unit) -> Job
-    ) : Entry<T>() {
-
-        override fun onBorn() {
-            job = subscribe(observer)
-        }
-    }
-
-    class ObserveOnErrorEntry<T>(
-        private val onEach: suspend (T) -> Unit,
-        private val onError: suspend FlowCollector<T>.(Throwable) -> Unit,
-        val subscribe: (suspend (T) -> Unit, suspend FlowCollector<T>.(Throwable) -> Unit) -> Job
-    ) : Entry<T>() {
-
-        override fun onBorn() {
-            job = subscribe(onEach, onError)
-        }
-    }
-
-    class ObserveOnErrorOnCompletionEntry<T>(
-        private val onEach: suspend (T) -> Unit,
-        private val onError: suspend FlowCollector<T>.(Throwable) -> Unit,
-        private val onCompletion: suspend FlowCollector<T>.(Throwable?) -> Unit,
-        val subscribe: (
-            suspend (T) -> Unit,
-            suspend FlowCollector<T>.(Throwable) -> Unit,
-            suspend FlowCollector<T>.(Throwable?) -> Unit
-        ) -> Job
-    ) : Entry<T>() {
-
-        override fun onBorn() {
-            job = subscribe(onEach, onError, onCompletion)
-        }
-    }
 }
+
+/**
+ * Builder function to create a [Life] to be able to sync easily. It needs an [scope] to include external cancellation.
+ */
+@ExperimentalCoroutinesApi
+fun <T> Flow<T>.toLife(
+    scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext)
+) = Entry { launchIn(scope) }

@@ -18,13 +18,8 @@ package com.github.hadilq.coroutinelifecyclehandler
 import androidx.lifecycle.LifecycleOwner
 import com.github.hadilq.androidlifecyclehandler.AndroidLifeHandler
 import com.github.hadilq.androidlifecyclehandler.LifeSpan
-import com.github.hadilq.coroutinelifecyclehandler.Entry.ObserveEntry
-import com.github.hadilq.coroutinelifecyclehandler.Entry.ObserveInEntry
-import com.github.hadilq.coroutinelifecyclehandler.Entry.ObserveOnErrorEntry
-import com.github.hadilq.coroutinelifecyclehandler.Entry.ObserveOnErrorOnCompletionEntry
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.catch
@@ -42,12 +37,16 @@ internal class CoroutineLifeHandlerImpl<T>(private val handler: AndroidLifeHandl
     override fun observeIn(
         flow: Flow<T>,
         scope: CoroutineScope
-    ): LifecycleOwner.() -> Unit = observeIn(flow.onLaunchIn(scope))
+    ): LifecycleOwner.() -> Unit = {
+        observeEntry(flow.toLife(scope))
+    }
 
     override fun observe(
         flow: Flow<T>,
         scope: CoroutineScope
-    ): LifecycleOwner.(suspend (T) -> Unit) -> Unit = observe(flow.onEachLaunchIn(scope))
+    ): LifecycleOwner.(suspend (T) -> Unit) -> Unit = { observer ->
+        observeEntry(flow.onEach(observer).toLife(scope))
+    }
 
     override fun observeOnError(
         flow: Flow<T>,
@@ -55,7 +54,9 @@ internal class CoroutineLifeHandlerImpl<T>(private val handler: AndroidLifeHandl
     ): LifecycleOwner.(
         suspend (T) -> Unit,
         suspend FlowCollector<T>.(Throwable) -> Unit
-    ) -> Unit = observeOnError(flow.onEachOnErrorLaunchIn(scope))
+    ) -> Unit = { observer, onError ->
+        observeEntry(flow.onEach(observer).catch(onError).toLife(scope))
+    }
 
     override fun observeOnErrorOnCompletion(
         flow: Flow<T>,
@@ -64,66 +65,11 @@ internal class CoroutineLifeHandlerImpl<T>(private val handler: AndroidLifeHandl
         suspend (T) -> Unit,
         suspend FlowCollector<T>.(Throwable) -> Unit,
         suspend FlowCollector<T>.(cause: Throwable?) -> Unit
-    ) -> Unit = observeOnErrorOnCompletion(flow.onEachOnErrorOnCompletionLaunchIn(scope))
-
-    private fun observeIn(subscribe: () -> Job):
-        LifecycleOwner.() -> Unit = {
-        observeEntry(ObserveInEntry(subscribe))
-    }
-
-    private fun observe(subscribe: (suspend (T) -> Unit) -> Job):
-        LifecycleOwner.(suspend (T) -> Unit) -> Unit = { observer ->
-        observeEntry(ObserveEntry(observer, subscribe))
-    }
-
-    private fun observeOnError(
-        subscribe: (
-            suspend (T) -> Unit,
-            suspend FlowCollector<T>.(Throwable) -> Unit
-        ) -> Job
-    ): LifecycleOwner.(
-        suspend (T) -> Unit,
-        suspend FlowCollector<T>.(Throwable) -> Unit
-    ) -> Unit = { observer, onError ->
-        observeEntry(ObserveOnErrorEntry(observer, onError, subscribe))
-    }
-
-    private fun observeOnErrorOnCompletion(
-        subscribe: (
-            suspend (T) -> Unit,
-            suspend FlowCollector<T>.(Throwable) -> Unit,
-            suspend FlowCollector<T>.(Throwable?) -> Unit
-        ) -> Job
-    ): LifecycleOwner.(
-        suspend (T) -> Unit,
-        suspend FlowCollector<T>.(Throwable) -> Unit,
-        suspend FlowCollector<T>.(Throwable?) -> Unit
     ) -> Unit = { observer, onError, onCompletion ->
-        observeEntry(ObserveOnErrorOnCompletionEntry(observer, onError, onCompletion, subscribe))
+        observeEntry(flow.onEach(observer).catch(onError).onCompletion(onCompletion).toLife(scope))
     }
 
-    private fun LifecycleOwner.observeEntry(entry: Entry<T>) {
+    private fun LifecycleOwner.observeEntry(entry: Entry) {
         handler.register(this, entry, LifeSpan.STARTED)
     }
-
-    private fun <T> Flow<T>.onLaunchIn(scope: CoroutineScope): () -> Job = { launchIn(scope) }
-
-    private fun <T> Flow<T>.onEachLaunchIn(scope: CoroutineScope):
-            (suspend (T) -> Unit) -> Job = { observer ->
-        onEach(observer).launchIn(scope)
-    }
-
-    private fun <T> Flow<T>.onEachOnErrorLaunchIn(scope: CoroutineScope):
-            (suspend (T) -> Unit, suspend FlowCollector<T>.(Throwable) -> Unit) -> Job = { observer, onError ->
-        onEach(observer).catch(onError).launchIn(scope)
-    }
-
-    private fun <T> Flow<T>.onEachOnErrorOnCompletionLaunchIn(scope: CoroutineScope): (
-        suspend (T) -> Unit,
-        suspend FlowCollector<T>.(Throwable) -> Unit,
-        suspend FlowCollector<T>.(cause: Throwable?) -> Unit
-    ) -> Job =
-        { observer, onError, onCompletion ->
-            onEach(observer).catch(onError).onCompletion(onCompletion).launchIn(scope)
-        }
 }

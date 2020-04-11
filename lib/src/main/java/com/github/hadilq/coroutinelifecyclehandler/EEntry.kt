@@ -2,67 +2,35 @@ package com.github.hadilq.coroutinelifecyclehandler
 
 import android.os.Bundle
 import com.github.hadilq.androidlifecyclehandler.ELife
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.launchIn
+import kotlin.coroutines.EmptyCoroutineContext
 
-sealed class EEntry<T>(val life: ELife) : ELife {
-    protected var job: Job? = null
+class EEntry(val subs: () -> Job, private val life: ELife) : ELife {
+
+    private var job: Job? = null
+
+    override fun onBorn(bundle: Bundle?) {
+        life.onBorn(bundle)
+        job = subs()
+    }
 
     override fun onDie(): Bundle {
         job?.cancel()
         job = null
         return life.onDie()
     }
-
-    class ObserveInEntry<T>(val subs: () -> Job, life: ELife) :
-        EEntry<T>(life) {
-
-        override fun onBorn(bundle: Bundle?) {
-            life.onBorn(bundle)
-            job = subs()
-        }
-    }
-
-    class ObserveEntry<T>(
-        private val observer: suspend (T) -> Unit,
-        val subscribe: (suspend (T) -> Unit) -> Job,
-        life: ELife
-    ) : EEntry<T>(life) {
-
-        override fun onBorn(bundle: Bundle?) {
-            life.onBorn(bundle)
-            job = subscribe(observer)
-        }
-    }
-
-    class ObserveOnErrorEntry<T>(
-        private val onEach: suspend (T) -> Unit,
-        private val onError: suspend FlowCollector<T>.(Throwable) -> Unit,
-        val subscribe: (suspend (T) -> Unit, suspend FlowCollector<T>.(Throwable) -> Unit) -> Job,
-        life: ELife
-    ) : EEntry<T>(life) {
-
-        override fun onBorn(bundle: Bundle?) {
-            life.onBorn(bundle)
-            job = subscribe(onEach, onError)
-        }
-    }
-
-    class ObserveOnErrorOnCompletionEntry<T>(
-        private val onEach: suspend (T) -> Unit,
-        private val onError: suspend FlowCollector<T>.(Throwable) -> Unit,
-        private val onCompletion: suspend FlowCollector<T>.(Throwable?) -> Unit,
-        val subscribe: (
-            suspend (T) -> Unit,
-            suspend FlowCollector<T>.(Throwable) -> Unit,
-            suspend FlowCollector<T>.(Throwable?) -> Unit
-        ) -> Job,
-        life: ELife
-    ) : EEntry<T>(life) {
-
-        override fun onBorn(bundle: Bundle?) {
-            life.onBorn(bundle)
-            job = subscribe(onEach, onError, onCompletion)
-        }
-    }
 }
+
+/**
+ * Builder function to create an [ELife] to be able to sync easily. It needs another [life] to be able to handle the
+ * Bundle. Also it needs an [scope] to include external cancellation.
+ */
+@ExperimentalCoroutinesApi
+fun <T> Flow<T>.toELife(
+    life: ELife,
+    scope: CoroutineScope = CoroutineScope(EmptyCoroutineContext)
+) = EEntry({ launchIn(scope) }, life)
