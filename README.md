@@ -10,7 +10,7 @@ This library is a glue between the lifecycle of `androidx.lifecycle:lifecycle-ex
 Also, we support a more general assumption that we want the emitted values after `start` and before `stop` or
 `saveState` of `SavedStateRegistryOwner`, depends which one gets called sooner.
 
-Also you can find its tween library for RxJava in https://github.com/hadilq/RxLifecycleHandler/.
+Also you can find its twin library for RxJava in https://github.com/hadilq/RxLifecycleHandler/.
 
 Usage
 ---
