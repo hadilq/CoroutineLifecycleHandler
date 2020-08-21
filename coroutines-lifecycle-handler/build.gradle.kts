@@ -26,6 +26,8 @@ import com.github.hadilq.build.plugin.COROUTINES
 import com.github.hadilq.build.plugin.COROUTINES_ANDROID
 import com.github.hadilq.build.plugin.COROUTINES_TEST
 import com.github.hadilq.build.plugin.ANDROID_LIFECYCLE_JVM
+import com.github.hadilq.build.plugin.COROUTINES_COMMON
+import com.github.hadilq.build.plugin.KOTLIN_STDLIB_COMMON
 import com.github.hadilq.build.plugin.MOCKK_COMMON
 import com.github.hadilq.build.plugin.ROBOLECTRIC
 import com.github.hadilq.build.plugin.VERSION_COMPILE_SDK
@@ -75,7 +77,9 @@ kotlin {
   sourceSets {
     commonMain {
       dependencies {
+        implementation(kotlin(KOTLIN_STDLIB_COMMON))
         api(ANDROID_LIFECYCLE)
+        implementation(COROUTINES_COMMON)
       }
     }
 
@@ -109,7 +113,8 @@ kotlin {
 
     val jvmMain by getting {
       dependencies {
-        implementation(ANDROID_LIFECYCLE_JVM)
+        api(ANDROID_LIFECYCLE_JVM)
+        implementation(COROUTINES)
       }
     }
 

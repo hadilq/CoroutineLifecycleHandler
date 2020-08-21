@@ -60,6 +60,7 @@ const val VERSION_MIN_SDK = 15
 const val VERSION_TARGET_SDK = 29
 
 const val KOTLIN_STDLIB = "stdlib"
+const val KOTLIN_STDLIB_COMMON = "stdlib-common"
 const val KOTLIN_TEST_COMMON = "test-common"
 const val KOTLIN_TEST_ANNOTATIONS_COMMON = "test-annotations-common"
 const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:$VERSION_ANDROIDX_APPCOMPAT"
@@ -67,10 +68,11 @@ const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:$VERSION_ANDROIDX_A
 const val LIFECYCLE = "androidx.lifecycle:lifecycle-extensions:$VERSION_LIFECYCLE"
 const val LIFECYCLE_COMPILER = "androidx.lifecycle:lifecycle-compiler:$VERSION_LIFECYCLE"
 const val ANDROIDX_VIEW_MODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:$VERSION_LIFECYCLE"
-const val ANDROID_LIFECYCLE = "com.github.hadilq:android-lifecycle-handler:$VERSION_ANDROID_LIFECYCLE"
+const val ANDROID_LIFECYCLE = "com.github.hadilq:android-lifecycle-handler-metadata:$VERSION_ANDROID_LIFECYCLE"
 const val ANDROID_LIFECYCLE_ANDROID = "com.github.hadilq:android-lifecycle-handler-android:$VERSION_ANDROID_LIFECYCLE"
 const val ANDROID_LIFECYCLE_JVM = "com.github.hadilq:android-lifecycle-handler-jvm:$VERSION_ANDROID_LIFECYCLE"
 const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$VERSION_COROUTINES"
+const val COROUTINES_COMMON = "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$VERSION_COROUTINES"
 const val COROUTINES_ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$VERSION_COROUTINES"
 
 const val JUNIT = "junit:junit:$VERSION_JUNIT"
