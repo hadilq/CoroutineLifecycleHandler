@@ -13,35 +13,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import com.github.hadilq.build.plugin.ANDROIDX_APPCOMPAT
+import com.github.hadilq.build.plugin.ANDROIDX_VIEW_MODEL
+import com.github.hadilq.build.plugin.COROUTINES
+import com.github.hadilq.build.plugin.COROUTINES_ANDROID
+import com.github.hadilq.build.plugin.GROUP_ID
+import com.github.hadilq.build.plugin.KOTLIN_STDLIB
+import com.github.hadilq.build.plugin.LIB_VERSION
+import com.github.hadilq.build.plugin.LIFECYCLE
+import com.github.hadilq.build.plugin.LIFECYCLE_COMPILER
+import com.github.hadilq.build.plugin.VERSION_COMPILE_SDK
+import com.github.hadilq.build.plugin.VERSION_MIN_SDK
+import com.github.hadilq.build.plugin.VERSION_TARGET_SDK
+
 plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
+    id("com.github.hadilq.build-plugin")
 }
 
 android {
-    compileSdkVersion(Versions.compileSdk)
-    buildToolsVersion(Versions.buildTools)
+    compileSdkVersion(VERSION_COMPILE_SDK)
     defaultConfig {
         applicationId = "com.hadilq.coroutinelifecyclehandler.sample"
-        minSdkVersion(Versions.minSdk)
-        targetSdkVersion(Versions.targetSdk)
+        minSdkVersion(VERSION_MIN_SDK)
+        targetSdkVersion(VERSION_TARGET_SDK)
         versionCode = 1
         versionName = "1.0"
     }
 }
 
 dependencies {
-    kapt(Depends.lifecycleCompiler)
+    kapt(LIFECYCLE_COMPILER)
 
-    implementation(project(":lib"))
-//    implementation("${Versions.groupId}:${Versions.artifactId}:${Versions.libVersion}")
+    implementation(project(":coroutines-lifecycle-handler"))
+//    implementation("$GROUP_ID:coroutines-lifecycle-handler-android:${LIB_VERSION}")
 
-    implementation(Depends.kotlin)
-    implementation(Depends.appCompat)
-    implementation(Depends.lifecycle)
-    implementation(Depends.viewModle)
-    implementation(Depends.coroutine)
-    implementation(Depends.coroutineAndroid)
+    implementation(kotlin(KOTLIN_STDLIB))
+    implementation(ANDROIDX_APPCOMPAT)
+    implementation(LIFECYCLE)
+    implementation(ANDROIDX_VIEW_MODEL)
+    implementation(COROUTINES)
+    implementation(COROUTINES_ANDROID)
 }
