@@ -53,7 +53,7 @@ private const val VERSION_ROBOLECTRIC = "4.3"
 const val VERSION_JACOCO = "0.8.5"
 
 const val GROUP_ID = "com.github.hadilq"
-const val LIB_VERSION = "0.4.0"
+const val LIB_VERSION = "0.4.1"
 
 const val VERSION_COMPILE_SDK = 29
 const val VERSION_MIN_SDK = 15
