@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.4.1
+-----
+
+_2020-08-21_
+
+Add `execute` extension function
+
 0.4.0
 -----
 
