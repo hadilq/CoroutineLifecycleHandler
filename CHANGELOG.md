@@ -1,6 +1,23 @@
 Changelog
 =========
 
+0.4.0
+-----
+
+_2020-08-21_
+
+ - Move to Kotlin Multiplatform
+  + The previous artifactId was `coroutinelifecyclehandler` which is now as following:
+     * For Android, it's `coroutines-lifecycle-handler-android`
+     * For Jvm, it's `coroutines-lifecycle-handler-jvm`
+     * For Common, it's `coroutines-lifecycle-handler-metadata`
+ - Remove `buildSrc`, instead use composite build with `build-plugin`
+ - Move `Entry`, and `EEntry`
+ - Create `DEntry`
+ - Configure JaCoCo
+ - Configure Maven Publication
+ - Configure Dokka
+
 0.3.3
 -----
 
