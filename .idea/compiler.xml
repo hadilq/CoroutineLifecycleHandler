@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel>
-      <module name="CoroutineLifecycleHandler" target="1.8" />
-      <module name="CoroutineLifecycleHandler.app" target="1.7" />
-      <module name="CoroutineLifecycleHandler.buildSrc" target="1.8" />
-      <module name="CoroutineLifecycleHandler.lib" target="1.7" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="CoroutineLifecycleHandler.coroutines-lifecycle-handler.commonMain" target="1.8" />
+      <module name="CoroutineLifecycleHandler.coroutines-lifecycle-handler.commonTest" target="1.8" />
+      <module name="CoroutineLifecycleHandler.coroutines-lifecycle-handler.jvmMain" target="1.8" />
+      <module name="CoroutineLifecycleHandler.coroutines-lifecycle-handler.jvmTest" target="1.8" />
+      <module name="CoroutineLifecycleHandler.lib.commonMain" target="1.8" />
+      <module name="CoroutineLifecycleHandler.lib.commonTest" target="1.8" />
+      <module name="CoroutineLifecycleHandler.lib.jvmMain" target="1.8" />
+      <module name="CoroutineLifecycleHandler.lib.jvmTest" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
