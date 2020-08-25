@@ -25,8 +25,8 @@ class BuildPlugin : Plugin<Project> {
 
 private const val VERSION_LIFECYCLE = "2.2.0"
 private const val VERSION_ANDROIDX_APPCOMPAT = "1.2.0"
-private const val VERSION_ANDROID_LIFECYCLE = "0.4.2"
-private const val VERSION_COROUTINES = "1.3.3"
+private const val VERSION_ANDROID_LIFECYCLE = "0.4.3"
+private const val VERSION_COROUTINES = "1.3.8"
 
 private const val VERSION_JUNIT = "4.12"
 private const val VERSION_MOCKITO = "1.4.0"
