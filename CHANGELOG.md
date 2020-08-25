@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.4.2
+-----
+
+_2020-08-25_
+
+Update androidx.lifecycle and coroutines libraries
+
 0.4.1
 -----
 
