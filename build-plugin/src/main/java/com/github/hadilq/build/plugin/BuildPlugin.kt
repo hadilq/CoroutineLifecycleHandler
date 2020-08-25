@@ -23,7 +23,7 @@ class BuildPlugin : Plugin<Project> {
   override fun apply(target: Project) = target.setup()
 }
 
-private const val VERSION_LIFECYCLE = "2.2.0-rc02"
+private const val VERSION_LIFECYCLE = "2.2.0"
 private const val VERSION_ANDROIDX_APPCOMPAT = "1.2.0"
 private const val VERSION_ANDROID_LIFECYCLE = "0.4.2"
 private const val VERSION_COROUTINES = "1.3.3"
