@@ -1,4 +1,4 @@
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.hadilq/coroutinelifecyclehandler/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.hadilq/coroutinelifecyclehandler)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.hadilq/coroutines-lifecycle-handler/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.hadilq/coroutines-lifecycle-handler)
 [![CircleCI](https://circleci.com/gh/hadilq/CoroutineLifecycleHandler.svg?style=svg)](https://circleci.com/gh/hadilq/CoroutineLifecycleHandler)
 [![codecov](https://codecov.io/gh/hadilq/CoroutineLifecycleHandler/branch/master/graph/badge.svg)](https://codecov.io/gh/hadilq/CoroutineLifecycleHandler)
 
@@ -117,7 +117,7 @@ Since version 0.4.0 this library is a Kotlin Multiplatform library, so depend on
 ```groovy
 implementation "com.github.hadilq:coroutines-lifecycle-handler-android:$libVersion"
 ```
-where the `libVersion` is [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.hadilq/coroutinelifecyclehandler/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.hadilq/coroutinelifecyclehandler).
+where the `libVersion` is [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.hadilq/coroutines-lifecycle-handler/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.hadilq/coroutines-lifecycle-handler).
 Use the above one if you already using this library or you need it in an android module. Use
 ```groovy
 implementation "com.github.hadilq:coroutines-lifecycle-handler-jvm:$libVersion"
