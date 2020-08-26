@@ -15,26 +15,7 @@
  */
 import com.github.hadilq.build.plugin.JUNIT
 import org.jetbrains.kotlin.gradle.dsl.Coroutines
-import com.github.hadilq.build.plugin.KOTLIN_STDLIB
-import com.github.hadilq.build.plugin.KOTLIN_TEST_ANNOTATIONS_COMMON
-import com.github.hadilq.build.plugin.KOTLIN_TEST_COMMON
-import com.github.hadilq.build.plugin.LIFECYCLE
-import com.github.hadilq.build.plugin.MOCKITO
-import com.github.hadilq.build.plugin.ANDROID_LIFECYCLE
-import com.github.hadilq.build.plugin.ANDROID_LIFECYCLE_ANDROID
-import com.github.hadilq.build.plugin.COROUTINES
-import com.github.hadilq.build.plugin.COROUTINES_ANDROID
-import com.github.hadilq.build.plugin.COROUTINES_TEST
-import com.github.hadilq.build.plugin.ANDROID_LIFECYCLE_JVM
-import com.github.hadilq.build.plugin.COROUTINES_COMMON
-import com.github.hadilq.build.plugin.KOTLIN_STDLIB_COMMON
-import com.github.hadilq.build.plugin.MOCKK_COMMON
-import com.github.hadilq.build.plugin.ROBOLECTRIC
-import com.github.hadilq.build.plugin.VERSION_COMPILE_SDK
-import com.github.hadilq.build.plugin.VERSION_MIN_SDK
-import com.github.hadilq.build.plugin.VERSION_TARGET_SDK
-import com.github.hadilq.build.plugin.setupJacoco
-import com.github.hadilq.build.plugin.setupPublication
+import com.github.hadilq.build.plugin.*
 
 plugins {
   id("kotlin-multiplatform")

@@ -13,18 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import com.github.hadilq.build.plugin.ANDROIDX_APPCOMPAT
-import com.github.hadilq.build.plugin.ANDROIDX_VIEW_MODEL
-import com.github.hadilq.build.plugin.COROUTINES
-import com.github.hadilq.build.plugin.COROUTINES_ANDROID
-import com.github.hadilq.build.plugin.GROUP_ID
-import com.github.hadilq.build.plugin.KOTLIN_STDLIB
-import com.github.hadilq.build.plugin.LIB_VERSION
-import com.github.hadilq.build.plugin.LIFECYCLE
-import com.github.hadilq.build.plugin.LIFECYCLE_COMPILER
-import com.github.hadilq.build.plugin.VERSION_COMPILE_SDK
-import com.github.hadilq.build.plugin.VERSION_MIN_SDK
-import com.github.hadilq.build.plugin.VERSION_TARGET_SDK
+import com.github.hadilq.build.plugin.*
 
 plugins {
     id("com.android.application")

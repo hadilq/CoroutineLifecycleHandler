@@ -79,8 +79,8 @@ fun Project.setupPublication() {
   val userId = "hadilq"
   val userName = "Hadi Lashkari Ghouchani"
   val userEmail = "hadilq.dev@gmail.com"
-  val githubUrl = "https://github.com/hadilq/AndroidLifecycleHandler"
-  val githubScmUrl = "scm:git@github.com:hadilq/AndroidLifecycleHandler.git"
+  val githubUrl = "https://github.com/hadilq/CoroutinesLifecycleHandler"
+  val githubScmUrl = "scm:git@github.com:hadilq/CoroutinesLifecycleHandler.git"
 
   val javadocJar by tasks.creating(Jar::class) {
     group = JavaBasePlugin.DOCUMENTATION_GROUP
@@ -102,10 +102,11 @@ fun Project.setupPublication() {
       pom {
         withXml {
           asNode().apply {
-            appendNode("name", "AndroidLifecycleHandler")
+            appendNode("name", "CoroutinesLifecycleHandler")
             appendNode(
               "description",
-              "This library is a simplifier for unnecessary complex lifecycles of `androidx.lifecycle:lifecycle-extensions`."
+              "This library is a glue between the lifecycle of `androidx.lifecycle:lifecycle-extensions` and `Flow` class of \n" +
+                " org.jetbrains.kotlinx:kotlinx-coroutines-core` library."
             )
             appendNode("url", githubUrl)
           }
